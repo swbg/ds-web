@@ -31,7 +31,7 @@ function isCategoryFurtherDrinks(product: Product): boolean {
   return GastroLabels.FurtherCategories.some((token) => nameLower.includes(token.toLowerCase()));
 }
 
-// Reneder product name, style non-alcoholic string
+// Render product name, style non-alcoholic string
 function renderProductName(name: string): React.ReactNode[] {
   return name.split(GastroLabels.NonAlcoholic).flatMap((part, i, arr) => [
     part,

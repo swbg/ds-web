@@ -113,12 +113,10 @@ export function formatHours(hours: string | undefined) {
       <div>
         {openingStatus === OpeningStatus.Unknown ? (
           // Fallback if 24/7 open
-          <div className="opening-hour-panel open">{breakify(hours)}</div>
+          <div className="opening-hours open">{breakify(hours)}</div>
         ) : (
           <>
-            <div className={`opening-hour-panel ${openingStatus}`}>
-              {OpeningLabels[openingStatus]}
-            </div>
+            <div className={`opening-hours ${openingStatus}`}>{OpeningLabels[openingStatus]}</div>
             {breakify(hours)}
           </>
         )}

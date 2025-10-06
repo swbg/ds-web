@@ -67,8 +67,6 @@ input:focus {
   right: 5px;
   bottom: 5px;
   margin-left: 5px;
-  /* height: 24px; */
-  /* padding: calc(var(--button-size) / 3); */
 
   background-color: white;
 
@@ -87,11 +85,6 @@ input:focus {
   line-height: 24px;
   padding-left: 8px;
   padding-right: 2px;
-  /* display: flex;
-  flex-direction: row;
-  gap: 5px;
-  flex-flow: wrap;
-  justify-content: flex-end; */
 }
 
 .attrib-content a {
@@ -191,6 +184,7 @@ p.info-subtitle {
   margin-bottom: 0;
 }
 
+/* GastroPanel price table */
 .info_menu {
   display: flex;
   flex-direction: column;
@@ -240,6 +234,19 @@ p.info-subtitle {
 .info_small_panel_text {
   font-size: 80%;
   padding-right: 3px;
+}
+
+/* OpeningStatus */
+.opening-hours {
+  margin-bottom: 0.4rem;
+}
+
+.opening-hours.open {
+  color: #065f46;
+}
+
+.opening-hours.closed {
+  color: #991b1b;
 }
 
 /* ControlBar */
@@ -515,28 +522,6 @@ p.info-subtitle {
   background-size: var(--icon-size);
 } */
 
-/* .maplibregl-ctrl-attrib-button {
-  background-image: url("/icons/attrib.svg");
-  background-size: 24px;
-  background-color: white;
-}
-
-.maplibregl-ctrl-attrib-button:focus {
-  box-shadow: none;
-}
-
-.maplibregl-ctrl-attrib-button:hover {
-  background-color: var(--color-hover);
-}
-
-.maplibregl-ctrl-attrib.maplibregl-compact-show .maplibregl-ctrl-attrib-button {
-  background-color: var(--color-hover);
-}
-
-.maplibregl-ctrl-attrib.maplibregl-compact {
-  margin: 5px;
-} */
-
 /* Media queries*/
 @media (max-aspect-ratio: 1/1) {
   .info-panel {
@@ -596,17 +581,4 @@ p.info-subtitle {
   .maplibregl-ctrl.maplibregl-ctrl-group:has(button.maplibregl-ctrl-zoom-in) {
     display: none;
   }
-}
-
-/* OpeningStatus */
-.opening-hour-panel {
-  margin-bottom: 0.4rem;
-}
-
-.opening-hour-panel.open {
-  color: #065f46;
-}
-
-.opening-hour-panel.closed {
-  color: #991b1b;
 }
