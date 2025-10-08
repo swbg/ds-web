@@ -2,7 +2,42 @@ import Clock from "../../assets/clock.svg";
 import Globe from "../../assets/globe.svg";
 import Location from "../../assets/location.svg";
 import Phone from "../../assets/phone.svg";
-import { OpeningLabels, OpeningStatus, Weekdays } from "../../const";
+import { GastroLabels, OpeningLabels, OpeningStatus, Weekdays } from "../../const";
+
+export function formatProductName(name: string) {
+  return (
+    <div className="prices-product">
+      {name.split(GastroLabels.NonAlcoholic).flatMap((part, i, arr) => [
+        part,
+        ...(i < arr.length - 1
+          ? [
+              <span key={`alko-${i}`} className="prices-small-text">
+                {GastroLabels.NonAlcoholic}
+              </span>,
+            ]
+          : []),
+      ])}
+    </div>
+  );
+}
+
+export function formatVolume(volume: number | undefined) {
+  if (!volume) return <div className="prices-volume"></div>;
+
+  const v = `0,${(volume + "").slice(0, 2)} l`.replace("0 l", " l");
+  return <div className="prices-volume">{v}</div>;
+}
+
+export function formatPrice(price: number, from: boolean) {
+  const p = `${Math.floor(price / 100)},${("00" + (price % 100)).slice(-2)} €`;
+
+  return (
+    <div className="prices-price">
+      {from && <span className="prices-small-text">ab </span>}
+      <span className="prices-price-value">{p}</span>
+    </div>
+  );
+}
 
 export function formatPlaceType(placeType: string | undefined) {
   if (!placeType) return "";

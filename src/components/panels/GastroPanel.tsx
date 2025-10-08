@@ -1,17 +1,19 @@
-import React from "react";
 import { GastroLabels, ProductTypes } from "../../const";
 import { Entry, Place, Product } from "../../types";
-import { formatPrice, formatVolume } from "../../utils";
 import { CloseButton } from "../Buttons";
-import { formatPhone, formatPlaceType, formatWebsite, googlifyAddress } from "./format";
+import {
+  formatPhone,
+  formatPlaceType,
+  formatPrice,
+  formatProductName,
+  formatVolume,
+  formatWebsite,
+  googlifyAddress,
+} from "./format";
 
 // Sort entries per location by productType to get groups
-function sortEntriesByProductType(
-  entries: Entry[],
-  products: Map<number, Product>,
-  typeOrder: string[],
-) {
-  const typePriority = new Map<string, number>(typeOrder.map((type, i) => [type, i]));
+function sortEntriesByProductType(entries: Entry[], products: Map<number, Product>) {
+  const typePriority = new Map<string, number>(ProductTypes.map((type, i) => [type, i]));
 
   return [...entries].sort((a, b) => {
     const productA = products.get(a.productId);
@@ -31,40 +33,27 @@ function isCategoryFurtherDrinks(product: Product): boolean {
   return GastroLabels.FurtherCategories.some((token) => nameLower.includes(token.toLowerCase()));
 }
 
-// Render product name, style non-alcoholic string
-function renderProductName(name: string): React.ReactNode[] {
-  return name.split(GastroLabels.NonAlcoholic).flatMap((part, i, arr) => [
-    part,
-    ...(i < arr.length - 1
-      ? [
-          <span key={`alko-${i}`} className="info_small_panel_text">
-            {GastroLabels.NonAlcoholic}
-          </span>,
-        ]
-      : []),
-  ]);
+function BrandRow({ brand }: { brand: string }) {
+  return <div className="prices-brand">{brand}</div>;
 }
 
-function renderBrandRow(brand: string, index: number) {
-  return (
-    <div key={`brand-${index}`} className="info_brand-row">
-      <div className="info_brand">{brand}</div>
-    </div>
-  );
-}
-
-function renderProductRow(entry: Entry, product: Product, groupKey: string, i: number) {
+function ProductRow({
+  entry,
+  product,
+  groupKey,
+}: {
+  entry: Entry;
+  product: Product;
+  groupKey: string;
+}) {
   const isFurther = groupKey === GastroLabels.FurtherDrinks;
 
   return (
-    <div key={`entry-${groupKey}-${i}`} className="info_menu-row info_product-row indent">
-      <div className="info_product">{renderProductName(product.productName)}</div>
-      <div className="info_volume">{formatVolume(entry.volume)}</div>
-      <div className="info_price">
-        {isFurther && <span className="info_small_panel_text">ab</span>}
-        <span className="price-value">{formatPrice(entry.price)}</span>
-      </div>
-    </div>
+    <>
+      {formatProductName(product.productName)}
+      {formatVolume(entry.volume)}
+      {formatPrice(entry.price, isFurther)}
+    </>
   );
 }
 
@@ -75,15 +64,14 @@ function formatEntries(activeEntries: Entry[] | undefined, products: Map<number,
   }
 
   // Sort entries once by product type
-  const sortedEntries = sortEntriesByProductType(activeEntries, products, [...ProductTypes]);
+  const sortedEntries = sortEntriesByProductType(activeEntries, products);
 
   // Group entries by brand or as "further"
   const groupedEntries = new Map<string, Entry[]>();
   const furtherEntries: Entry[] = [];
 
   for (const entry of sortedEntries) {
-    const product = products.get(entry.productId);
-    if (!product) continue;
+    const product = products.get(entry.productId)!;
 
     if (isCategoryFurtherDrinks(product)) {
       furtherEntries.push(entry);
@@ -93,16 +81,17 @@ function formatEntries(activeEntries: Entry[] | undefined, products: Map<number,
       groupedEntries.get(brandKey)!.push(entry);
     }
   }
-
   if (furtherEntries.length) groupedEntries.set(GastroLabels.FurtherDrinks, furtherEntries);
 
   return (
-    <div className="info_menu">
-      {Array.from(groupedEntries.entries()).flatMap(([brand, entries], groupIndex) => [
-        renderBrandRow(brand, groupIndex),
+    <div className="prices-table">
+      {Array.from(groupedEntries.entries()).flatMap(([brand, entries]) => [
+        <BrandRow key={brand} brand={brand} />,
         ...entries.map((entry, i) => {
           const product = products.get(entry.productId)!;
-          return renderProductRow(entry, product, brand, i);
+          return (
+            <ProductRow key={`${brand}-${i}`} entry={entry} product={product} groupKey={brand} />
+          );
         }),
       ])}
     </div>

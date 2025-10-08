@@ -185,55 +185,39 @@ p.info-subtitle {
 }
 
 /* GastroPanel price table */
-.info_menu {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.6;
-  margin-top: 0.2rem;
-}
-
-/* Generic row style */
-.info_menu-row {
+.prices-table {
   display: grid;
-  grid-template-columns: 1fr min-content min-content; /* flexible product, volume, price */
-  gap: 1rem; /* reduce space between columns */
-  align-items: baseline;
+  /* product, volume, price */
+  grid-template-columns: 1fr min-content min-content;
+  gap: 0.3rem;
 }
 
-.info_brand-row {
-  margin-top: 0.5rem; /*remove*/
-}
-
-.info_brand {
+.prices-brand {
+  grid-column: 1 / 4;
   font-weight: 600;
+  margin-top: 0.6rem;
 }
 
-.info_product-row.indent {
+.prices-product {
   padding-left: 0.5rem;
 }
 
-/* Shared text color for products, volume, and price */
-.info_product,
-.info_volume {
-  color: #444;
+.prices-volume {
+  color: var(--color-dark-gray);
 }
 
-/* Price column */
-.info_price {
+.prices-price {
+  padding-left: 10px; /* space between volume and price */
   text-align: right;
-  font-weight: 550;
-  white-space: nowrap;
 }
 
-/* Volume column */
-.info_volume {
-  text-align: middle;
+.prices-price-value {
+  font-weight: 600;
 }
 
-/* Non-alcoholic and ab label */
-.info_small_panel_text {
-  font-size: 80%;
-  padding-right: 3px;
+.prices-small-text {
+  font-size: 0.8rem;
+  color: var(--color-dark-gray);
 }
 
 /* OpeningStatus */

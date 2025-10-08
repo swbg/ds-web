@@ -1,14 +1,5 @@
 import { Place, PlaceFeature } from "./types";
 
-export function formatPrice(price: number) {
-  return `${Math.floor(price / 100)},${("00" + (price % 100)).slice(-2)}€`;
-}
-
-export function formatVolume(volume: number | undefined) {
-  if (!volume) return "";
-  return `0,${(volume + "").slice(0, 2)} l`;
-}
-
 export function getSource(place: Omit<Place, "source">) {
   if (place.placeType === "Trinkbrunnen") return "drop";
   if (place.placeType === "Tankstelle" || place.placeType === "Späti") return "bag";
