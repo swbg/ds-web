@@ -67,3 +67,10 @@ export const OpeningLabels: Record<OpeningStatus, string> = {
   [OpeningStatus.Closed]: "Geschlossen",
   [OpeningStatus.Unknown]: "",
 };
+
+export const GastroLabels = {
+  NoPrices: "Noch keine Preise verfügbar",
+  NonAlcoholic: "Alkoholfrei",
+  FurtherDrinks: "Weitere Getränke",
+  FurtherCategories: ["Weinschorle", "Spritz"],
+};

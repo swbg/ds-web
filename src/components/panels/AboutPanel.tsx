@@ -1,7 +1,7 @@
-import { privacyText } from "../assets/about.ts";
-import { AboutState } from "../const.ts";
-import { dec } from "../utils";
-import { CloseButton } from "./Buttons";
+import { privacyText } from "../../assets/about";
+import { AboutState } from "../../const";
+import { dec } from "../../utils";
+import { CloseButton } from "../Buttons";
 
 const ic = (import.meta.env.VITE_IC as string).split(",").map((c, i) => (
   <span key={i} style={{ display: "block" }}>

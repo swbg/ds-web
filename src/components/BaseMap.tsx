@@ -8,10 +8,10 @@ import { addPlacesSource, makeClickable, makeHoverable } from "../map";
 import { Entry, FilterAction, FilterState, Place, PlaceFeature, Product } from "../types";
 import { getLocationState } from "../utils";
 import { dec } from "../utils";
-import AboutPanel from "./AboutPanel";
 import AttribControl from "./AttribControl";
 import ControlBar from "./ControlBar";
-import InfoPanel from "./InfoPanel";
+import AboutPanel from "./panels/AboutPanel";
+import InfoPanel from "./panels/InfoPanel";
 
 export default function BaseMap() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
